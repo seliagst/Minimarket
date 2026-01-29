@@ -2,13 +2,11 @@
 session_start();
 include 'koneksi.php';
 
-// Proteksi Halaman
 if (!isset($_SESSION['role']) || ($_SESSION['role'] !== 'karyawan' && $_SESSION['role'] !== 'admin')) {
     header("Location: login.php");
     exit();
 }
 
-// Ambil data barang
 $result = mysqli_query($conn, "SELECT * FROM barang ORDER BY nama_barang ASC");
 ?>
 <!DOCTYPE html>
@@ -39,8 +37,6 @@ $result = mysqli_query($conn, "SELECT * FROM barang ORDER BY nama_barang ASC");
             display: flex;
             min-height: 100vh;
         }
-
-        /* --- Sidebar Style (Sama dengan Dashboard) --- */
         .sidebar {
             width: 280px;
             background-color: #fff;

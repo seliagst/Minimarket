@@ -2,7 +2,6 @@
 session_start();
 include 'koneksi.php';
 
-// Proteksi akses
 if (!isset($_SESSION['role'])) {
     header("Location: login.php");
     exit();
@@ -57,7 +56,6 @@ if (!$barang) {
             flex-wrap: wrap;
         }
 
-        /* Bagian Gambar */
         .image-section {
             flex: 1;
             min-width: 350px;
@@ -76,7 +74,6 @@ if (!$barang) {
             filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));
         }
 
-        /* Bagian Info */
         .info-section {
             flex: 1.2;
             padding: 50px;

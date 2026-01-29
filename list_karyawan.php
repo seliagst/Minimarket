@@ -2,20 +2,17 @@
 session_start();
 include 'koneksi.php';
 
-// Proteksi: Hanya Admin yang bisa mengakses halaman ini
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
     header("Location: login.php");
     exit();
 }
 
-// Logika Hapus Data
 if (isset($_GET['hapus'])) {
     $id = $_GET['hapus'];
     mysqli_query($conn, "DELETE FROM karyawan WHERE id='$id'");
     header("Location: list_karyawan.php");
 }
 
-// Ambil semua data karyawan
 $query = mysqli_query($conn, "SELECT * FROM karyawan ORDER BY id DESC");
 ?>
 <!DOCTYPE html>
@@ -41,7 +38,6 @@ $query = mysqli_query($conn, "SELECT * FROM karyawan ORDER BY id DESC");
             display: flex;
         }
 
-        /* Re-use Sidebar Style from Dashboard */
         .sidebar {
             width: 280px;
             background-color: #fff;
@@ -94,7 +90,6 @@ $query = mysqli_query($conn, "SELECT * FROM karyawan ORDER BY id DESC");
             font-weight: 700;
         }
 
-        /* Main Content */
         .content {
             margin-left: 280px;
             padding: 40px;

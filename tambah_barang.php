@@ -6,17 +6,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $nama_barang = mysqli_real_escape_string($conn, $_POST['nama_barang']);
     $jumlah = mysqli_real_escape_string($conn, $_POST['jumlah']);
     
-    // Logika Upload Gambar
     $nama_gambar_db = "";
     if (isset($_FILES['gambar']) && $_FILES['gambar']['error'] == 0) {
         $gambar = $_FILES['gambar']['name'];
         $tmp_name = $_FILES['gambar']['tmp_name'];
         
-        // Buat nama unik agar file tidak tertimpa
         $nama_gambar_db = date('dmYHis') . '_' . str_replace(' ', '_', $gambar);
         $path = "asset/" . $nama_gambar_db;
-
-        // Pindahkan file ke folder asset
         move_uploaded_file($tmp_name, $path);
     }
 

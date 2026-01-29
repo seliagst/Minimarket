@@ -1,30 +1,23 @@
 <?php
 session_start();
-// Pastikan hanya Admin yang bisa masuk
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
     header("Location: login.php");
     exit();
 }
 include 'koneksi.php';
 
-// --- AMBIL DATA REAL DARI DATABASE ---
-
-// 1. Total Jenis Produk
 $query_jenis = mysqli_query($conn, "SELECT COUNT(*) as total FROM barang");
 $data_jenis = mysqli_fetch_assoc($query_jenis);
 $total_jenis = $data_jenis['total'];
 
-// 2. Total Unit Stok (Jumlah dari semua kolom jumlah)
 $query_stok = mysqli_query($conn, "SELECT SUM(jumlah) as total_unit FROM barang");
 $data_stok = mysqli_fetch_assoc($query_stok);
 $total_unit = $data_stok['total_unit'] ?? 0;
 
-// 3. Produk Stok Tipis (Stok di bawah 5)
 $query_tipis = mysqli_query($conn, "SELECT COUNT(*) as total FROM barang WHERE jumlah < 5");
 $data_tipis = mysqli_fetch_assoc($query_tipis);
 $stok_tipis = $data_tipis['total'];
 
-// 4. Ambil 5 Produk Terbaru untuk Tabel
 $barang_terbaru = mysqli_query($conn, "SELECT * FROM barang ORDER BY id DESC LIMIT 5");
 ?>
 <!DOCTYPE html>
@@ -55,7 +48,6 @@ $barang_terbaru = mysqli_query($conn, "SELECT * FROM barang ORDER BY id DESC LIM
             display: flex;
         }
 
-        /* --- Sidebar --- */
         .sidebar {
             width: 280px;
             background-color: #fff;
@@ -92,7 +84,6 @@ $barang_terbaru = mysqli_query($conn, "SELECT * FROM barang ORDER BY id DESC LIM
         .nav-link i { margin-right: 12px; font-size: 1.2rem; }
         .logout-link { color: var(--danger); font-weight: 700; }
 
-        /* --- Content --- */
         .content { margin-left: 280px; padding: 40px; width: 100%; }
 
         .header-top {
@@ -111,9 +102,9 @@ $barang_terbaru = mysqli_query($conn, "SELECT * FROM barang ORDER BY id DESC LIM
             display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
         }
 
-        .bg-1 { background: #DEF9EC; color: #3BB77E; } /* Hijau */
-        .bg-2 { background: #E7E9FF; color: #5B6CFF; } /* Biru */
-        .bg-3 { background: #FFF1F1; color: #FD6E6E; } /* Merah */
+        .bg-1 { background: #DEF9EC; color: #3BB77E; } 
+        .bg-2 { background: #E7E9FF; color: #5B6CFF; }
+        .bg-3 { background: #FFF1F1; color: #FD6E6E; } 
 
         .table-container {
             background: white; border-radius: 20px; padding: 30px;

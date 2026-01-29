@@ -8,7 +8,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = mysqli_real_escape_string($conn, $_POST['username']);
     $password = mysqli_real_escape_string($conn, $_POST['password']);
 
-    // Query untuk karyawan (tanpa filter role admin agar semua karyawan bisa masuk)
     $query = "SELECT * FROM karyawan WHERE username = '$username' AND password = '$password'";
     $result = mysqli_query($conn, $query);
 
@@ -62,7 +61,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             display: flex;
         }
 
-        /* Sisi Kiri */
         .side-info {
             flex: 1;
             background: linear-gradient(135deg, var(--soft-green) 0%, #ffffff 100%);
@@ -105,7 +103,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             color: var(--primary);
         }
 
-        /* Sisi Kanan */
         .login-section {
             flex: 1;
             display: flex;

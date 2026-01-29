@@ -2,7 +2,6 @@
 session_start();
 include 'koneksi.php';
 
-// Ambil data barang
 $result = mysqli_query($conn, "SELECT * FROM barang ORDER BY id DESC");
 ?>
 <!DOCTYPE html>
@@ -30,7 +29,6 @@ $result = mysqli_query($conn, "SELECT * FROM barang ORDER BY id DESC");
             margin: 0;
         }
 
-        /* Sidebar Tetap Sama */
         .sidebar {
             width: 280px;
             background-color: #fff;
@@ -93,7 +91,6 @@ $result = mysqli_query($conn, "SELECT * FROM barang ORDER BY id DESC");
             width: 100%;
         }
 
-        /* --- Grid Card Style --- */
         .product-card {
             background: white;
             border-radius: 15px;
@@ -112,14 +109,14 @@ $result = mysqli_query($conn, "SELECT * FROM barang ORDER BY id DESC");
 
         .product-img {
             width: 100%;
-            height: 150px; /* Tinggi tetap */
-            object-fit: contain; /* Gambar akan menyesuaikan tanpa terdistorsi */
+            height: 150px; 
+            object-fit: contain; 
             padding: 10px;
         }
 
         .img-wrapper {
             background-color: #f8f9fa;
-            height: 180px; /* Samakan semua tinggi kotak gambar */
+            height: 180px; 
             display: flex;
             align-items: center;
             justify-content: center;

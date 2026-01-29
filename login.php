@@ -8,20 +8,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = mysqli_real_escape_string($conn, $_POST['username']);
     $password = mysqli_real_escape_string($conn, $_POST['password']);
 
-    // Cari user tanpa filter role dulu untuk cek siapa dia sebenarnya
     $query = "SELECT * FROM karyawan WHERE username = '$username' AND password = '$password'";
     $result = mysqli_query($conn, $query);
 
     if ($result && mysqli_num_rows($result) > 0) {
         $user = mysqli_fetch_assoc($result);
         
-        // CEK ROLE: Jika dia Karyawan tapi maksa login di halaman Admin
         if ($user['role'] !== 'admin') {
             header("Location: loginkaryawan.php");
             exit();
         }
-
-        // Jika dia benar Admin, baru buat session
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['username'] = $user['username'];
         $_SESSION['role'] = $user['role']; 
@@ -63,7 +59,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             display: flex;
         }
 
-        /* Sisi Kiri */
         .side-info {
             flex: 1;
             background: linear-gradient(135deg, var(--soft-green) 0%, #ffffff 100%);
@@ -106,7 +101,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             color: var(--primary);
         }
 
-        /* Sisi Kanan */
         .login-section {
             flex: 1;
             display: flex;

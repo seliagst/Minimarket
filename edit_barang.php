@@ -2,7 +2,6 @@
 session_start();
 include 'koneksi.php';
 
-// Ambil ID dari URL
 $id = mysqli_real_escape_string($conn, $_GET['id']);
 $result = mysqli_query($conn, "SELECT * FROM barang WHERE id = $id");
 $barang = mysqli_fetch_assoc($result);
@@ -16,7 +15,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $nama_barang = mysqli_real_escape_string($conn, $_POST['nama_barang']);
     $jumlah = mysqli_real_escape_string($conn, $_POST['jumlah']);
     
-    // Cek apakah user mengupload gambar baru
     if (isset($_FILES['gambar']) && $_FILES['gambar']['error'] == 0) {
         $nama_file = $_FILES['gambar']['name'];
         $tmp_name = $_FILES['gambar']['tmp_name'];
@@ -24,14 +22,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $path = "asset/" . $nama_gambar_baru;
 
         if (move_uploaded_file($tmp_name, $path)) {
-            // Hapus gambar lama jika ada (opsional agar folder asset tidak penuh)
             if (!empty($barang['gambar']) && file_exists("asset/" . $barang['gambar'])) {
                 unlink("asset/" . $barang['gambar']);
             }
             $query = "UPDATE barang SET nama_barang = '$nama_barang', jumlah = '$jumlah', gambar = '$nama_gambar_baru' WHERE id = $id";
         }
     } else {
-        // Jika tidak ganti gambar, update nama & jumlah saja
         $query = "UPDATE barang SET nama_barang = '$nama_barang', jumlah = '$jumlah' WHERE id = $id";
     }
 
@@ -72,7 +68,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             display: flex;
         }
 
-        /* Area Form (60%) */
         .form-section {
             flex: 1.5;
             display: flex;
@@ -86,7 +81,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             max-width: 500px;
         }
 
-        /* Area Preview (40%) */
         .preview-section {
             flex: 1;
             background: linear-gradient(135deg, var(--soft-green) 0%, #ffffff 100%);

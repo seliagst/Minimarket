@@ -1,25 +1,19 @@
 <?php
 session_start();
-// Pastikan hanya Karyawan yang bisa masuk (atau Admin juga boleh lihat)
 if (!isset($_SESSION['role']) || ($_SESSION['role'] !== 'karyawan' && $_SESSION['role'] !== 'admin')) {
     header("Location: login.php");
     exit();
 }
 include 'koneksi.php';
 
-// --- AMBIL DATA REAL DARI DATABASE ---
-
-// 1. Total Jenis Produk yang tersedia
 $query_jenis = mysqli_query($conn, "SELECT COUNT(*) as total FROM barang");
 $data_jenis = mysqli_fetch_assoc($query_jenis);
 $total_jenis = $data_jenis['total'];
 
-// 2. Produk yang Stoknya Menipis (Stok di bawah 5)
 $query_tipis = mysqli_query($conn, "SELECT COUNT(*) as total FROM barang WHERE jumlah < 5");
 $data_tipis = mysqli_fetch_assoc($query_tipis);
 $stok_tipis = $data_tipis['total'];
 
-// 3. Daftar barang yang paling sedikit stoknya (Prioritas Re-stock)
 $stok_prioritas = mysqli_query($conn, "SELECT * FROM barang ORDER BY jumlah ASC LIMIT 5");
 ?>
 <!DOCTYPE html>
@@ -51,7 +45,6 @@ $stok_prioritas = mysqli_query($conn, "SELECT * FROM barang ORDER BY jumlah ASC 
             min-height: 100vh;
         }
 
-        /* --- Sidebar Style (Fix Bottom Button) --- */
         .sidebar {
             width: 280px;
             background-color: #fff;
@@ -60,7 +53,7 @@ $stok_prioritas = mysqli_query($conn, "SELECT * FROM barang ORDER BY jumlah ASC 
             padding: 25px 20px;
             border-right: 1px solid #ececec;
             display: flex;
-            flex-direction: column; /* Membuat isi sidebar menyusun ke bawah */
+            flex-direction: column; 
             z-index: 100;
         }
 
@@ -76,7 +69,7 @@ $stok_prioritas = mysqli_query($conn, "SELECT * FROM barang ORDER BY jumlah ASC 
             list-style: none;
             padding: 0;
             margin: 0;
-            flex-grow: 1; /* Mengambil sisa ruang agar tombol logout terdorong ke bawah */
+            flex-grow: 1;
         }
 
         .nav-link {
@@ -104,13 +97,12 @@ $stok_prioritas = mysqli_query($conn, "SELECT * FROM barang ORDER BY jumlah ASC 
         .logout-link {
             color: var(--danger) !important;
             font-weight: 700;
-            margin-top: auto; /* Memaksa elemen ini ke dasar container flex */
+            margin-top: auto; 
             border-top: 1px solid #f1f1f1;
             padding-top: 20px;
             border-radius: 0;
         }
 
-        /* --- Main Content --- */
         .content { 
             margin-left: 280px; 
             padding: 40px; 

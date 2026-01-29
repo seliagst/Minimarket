@@ -2,7 +2,6 @@
 include 'koneksi.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Mengamankan input
     $nama_karyawan = mysqli_real_escape_string($conn, $_POST['nama_karyawan']);
     $nomor_telepon = mysqli_real_escape_string($conn, $_POST['nomor_telepon']);
     $alamat = mysqli_real_escape_string($conn, $_POST['alamat']);
@@ -14,7 +13,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
               VALUES ('$nama_karyawan', '$nomor_telepon', '$alamat', '$username', '$password', '$role')";
     
     if(mysqli_query($conn, $query)) {
-        // Setelah daftar, arahkan ke login agar mereka bisa mencoba akun barunya
         header("Location: loginkaryawan.php");
         exit();
     }
@@ -48,13 +46,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         .main-wrapper {
             height: 100vh;
             display: flex;
-            /* Form di Kiri, Info di Kanan */
             flex-direction: row; 
         }
 
-        /* Sisi Kiri: AREA FORM (LEBIH LEBAR) */
         .form-section {
-            flex: 1.5; /* Proporsi 60% */
+            flex: 1.5; 
             display: flex;
             justify-content: center;
             align-items: center;
@@ -65,12 +61,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         .form-card {
             width: 100%;
-            max-width: 550px; /* Diperlebar agar inputan lega */
+            max-width: 550px; 
         }
 
-        /* Sisi Kanan: AREA INFO (LEBIH RAMPING) */
         .side-info {
-            flex: 1; /* Proporsi 40% */
+            flex: 1; 
             background: linear-gradient(135deg, var(--soft-green) 0%, #ffffff 100%);
             display: flex;
             flex-direction: column;
@@ -154,7 +149,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         .back-link:hover { color: var(--primary); }
 
-        /* Responsif HP */
         @media (max-width: 991px) {
             .side-info { display: none; }
             .form-section { flex: 1; padding: 20px; }

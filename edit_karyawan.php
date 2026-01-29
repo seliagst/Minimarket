@@ -2,7 +2,6 @@
 session_start();
 include 'koneksi.php';
 
-// Proteksi: Hanya Admin yang bisa mengedit
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
     header("Location: login.php");
     exit();
@@ -12,7 +11,6 @@ $id = mysqli_real_escape_string($conn, $_GET['id']);
 $result = mysqli_query($conn, "SELECT * FROM karyawan WHERE id = '$id'");
 $karyawan = mysqli_fetch_assoc($result);
 
-// Jika ID tidak ditemukan
 if (!$karyawan) {
     header("Location: list_karyawan.php");
     exit();
@@ -72,7 +70,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             flex-direction: row; 
         }
 
-        /* Sisi Kiri: AREA FORM (LEBIH LEBAR) */
         .form-section {
             flex: 1.5; 
             display: flex;
@@ -88,7 +85,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             max-width: 550px;
         }
 
-        /* Sisi Kanan: AREA INFO (LEBIH RAMPING) */
         .side-info {
             flex: 1; 
             background: linear-gradient(135deg, var(--soft-green) 0%, #ffffff 100%);
